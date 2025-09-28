@@ -161,7 +161,27 @@ export const robotAPI = {
     } catch (error) {
       throw new Error(`Workspace bounds calculation failed: ${error.message}`);
     }
-  }
+  },
+
+  // Trajectory generation - draw letter B
+  async generateTrajectoryB() {
+    try {
+      const response = await api.post('/trajectories/draw_b');
+      return response.data;
+    } catch (error) {
+      throw new Error(`Trajectory generation failed: ${error.message}`);
+    }
+  },
+
+  // Trajectory execution
+  async executeTrajectory(trajectory) {
+    try {
+      const response = await api.post('/trajectories/execute', trajectory);
+      return response.data;
+    } catch (error) {
+      throw new Error(`Trajectory execution failed: ${error.message}`);
+    }
+  },
 };
 
 // Connection status checker - محسن

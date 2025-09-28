@@ -146,3 +146,15 @@ class IKSolution(BaseModel):
 class EventRequest(BaseModel):
     """نموذج لطلب الأحداث"""
     event: str = Field(..., description="نوع الحدث المرسل من الواجهة الأمامية")
+
+class TrajectoryPoint(BaseModel):
+    """Model for a single point in a trajectory, containing position and joint angles."""
+    joint_angles: List[float] = Field(..., description="The calculated joint angles for this point.")
+    position: List[float] = Field(..., description="The target (x, y, z) position of the end-effector.")
+    success: bool = Field(..., description="Was the IK solution for this point successful?")
+
+class TrajectoryResponse(BaseModel):
+    """The complete response for a trajectory request."""
+    trajectory: List[TrajectoryPoint] = Field(..., description="A list of all points in the generated trajectory.")
+    total_points: int = Field(..., description="The total number of points in the trajectory.")
+    successful_points: int = Field(..., description="The number of points for which IK was successfully solved.")

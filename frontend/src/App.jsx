@@ -15,6 +15,7 @@ import {
   recordEvent
 } from './services/api';
 import WorkspaceViews from './components/WorkspaceVisualization';
+import TrajectoryVisualization from './components/TrajectoryVisualization';
 
 // مكونات مثبتة
 import AchievementToast from './components/AchievementToast';
@@ -30,6 +31,7 @@ const RobotInfoMemo = memo(RobotInfo);
 const JointControlMemo = memo(JointControl);
 const PathPlanningMemo = memo(PathPlanning);
 const RobotViewerMemo = memo(RobotViewer);
+const TrajectoryVisualizationMemo = memo(TrajectoryVisualization);
 
 function App() {
   const [jointAngles, setJointAngles] = useState(HOME_POSITION);
@@ -309,6 +311,10 @@ function App() {
                 onPathImport={handlePathImport}
                 onPathExport={handlePathExport}
                 highlightedElement={highlightedElement}
+              />
+              <TrajectoryVisualizationMemo
+                onJointAnglesChange={handleAllJointsChange}
+                connectionStatus={connectionStatus}
               />
               <PerformanceStats />
               <TrainingMode

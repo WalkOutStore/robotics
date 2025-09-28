@@ -26,13 +26,13 @@ class FrankaPandaKinematicsPython:
 
         # Official joint limits from Franka Panda datasheet (in radians)
         self.joint_limits = np.array([
-            [-2.8973, 2.8973],    # Joint 1: ±166°
-            [-1.7628, 1.7628],    # Joint 2: ±101°
-            [-2.8973, 2.8973],    # Joint 3: ±166°
-            [-3.0718, -0.0698],   # Joint 4: -176° to -4° (unique range)
-            [-2.8973, 2.8973],    # Joint 5: ±166°
-            [-0.0175, 3.7525],    # Joint 6: -1° to 215° (unique range)
-            [-2.8973, 2.8973]     # Joint 7: ±166°
+            [-2.8973, 2.8973],    
+            [-1.7628, 1.7628],    
+            [-2.8973, 2.8973],    
+            [-3.0718, -0.0698],   
+            [-2.8973, 2.8973],    
+            [-0.0175, 3.7525],    
+            [-2.8973, 2.8973]     
         ])
 
         # Maximum reach from base (855 mm)
@@ -270,7 +270,7 @@ class FrankaPandaKinematicsPython:
                 # Singular or ill-conditioned Jacobian
                 break
 
-        # Check joint limits for final solution
+        
         out_of_bounds = False
         for i, angle in enumerate(current_angles):
             if angle < self.joint_limits[i][0] or angle > self.joint_limits[i][1]:

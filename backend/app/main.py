@@ -7,6 +7,8 @@ from typing import List, Optional
 import numpy as np
 from pydantic import BaseModel
 import logging
+from .models import TrajectoryResponse, TrajectoryPoint
+from .trajectory_generator import generate_b_trajectory
 
 logger = logging.getLogger(__name__)
 # إضافة نظام الإنجازات
@@ -62,6 +64,30 @@ async def root():
 async def health_check():
     """فحص صحة الخدمة"""
     return {"status": "healthy", "service": "Franka Panda Control API"}
+
+# 2. Add this new endpoint function to the file
+@app.post("/trajectories/draw_b", response_model=TrajectoryResponse, tags=["Trajectories"])
+async def draw_b_trajectory_endpoint():
+    """
+    Generates and solves the inverse kinematics for a trajectory
+    that draws the letter 'B' in the robot's workspace.
+    """
+    try:
+        # Call the generator function with the global kinematics object
+        trajectory_list, total, successful = generate_b_trajectory(kinematics)
+
+        # Convert the list of dictionaries to a list of TrajectoryPoint models
+        trajectory_points = [TrajectoryPoint(**p) for p in trajectory_list]
+
+        return TrajectoryResponse(
+            trajectory=trajectory_points,
+            total_points=total,
+            successful_points=successful
+        )
+    except Exception as e:
+        logger.error(f"Failed to generate 'B' trajectory: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Failed to generate trajectory: {str(e)}")
+
 
 @app.post("/kinematics/forward", response_model=EndEffectorPose)
 async def forward_kinematics_endpoint(joint_angles: JointAngles):
