@@ -1,0 +1,22 @@
+{
+  "stats": {
+    "total_movements": 670,
+    "home_returns": 3,
+    "workspace_calculations": 20,
+    "singularity_encounters": 0,
+    "path_executions": 0,
+    "session_time": 0,
+    "fk_out_of_bounds_count": 0,
+    "ik_out_of_bounds_count": 0
+  },
+  "unlocked_achievements": [
+    "first_movement",
+    "workspace_explorer",
+    "movement_master"
+  ],
+  "unlock_times": {
+    "first_movement": "2025-09-13T20:49:14.583842",
+    "workspace_explorer": "2025-09-13T20:49:12.548306",
+    "movement_master": "2025-09-13T21:07:14.887375"
+  }
+}
